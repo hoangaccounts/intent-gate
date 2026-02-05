@@ -16,6 +16,7 @@ pnpm-debug.log*
 # --- Node ---
 node_modules/
 action/node_modules/
+action/package-lock.json
 
 # --- Coverage / reports ---
 coverage/

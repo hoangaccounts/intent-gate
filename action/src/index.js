@@ -3,7 +3,7 @@ const fs = require("fs");
 const core = require("@actions/core");
 const exec = require("@actions/exec");
 const yaml = require("js-yaml");
-const minimatch = require("minimatch");
+const { minimatch } = require("minimatch");
 
 async function run() {
   try {
