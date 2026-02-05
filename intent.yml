@@ -1,0 +1,4 @@
+intent_version: 1
+forbidden:
+  paths:
+    - ".github/**"
