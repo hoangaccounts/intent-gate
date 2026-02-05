@@ -1,4 +1,13 @@
 intent_version: 1
+
+allowed:
+  paths:
+    - ".github/workflows/**"
+    - "action/**"
+    - "intent.yml"
+    - "README.md"
+
 forbidden:
   paths:
-    - ".github/**"
+    # keep your real product areas forbidden if you want, but don't forbid the gate while fixing it
+    - "src/domain/**"
