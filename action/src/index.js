@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require("fs");
 
 const core = require("@actions/core");
@@ -14,8 +16,10 @@ async function run() {
       return;
     }
 
-    const intent = yaml.load(fs.readFileSync(intentPath, "utf8")) || {};
-    const forbidden = ((intent.forbidden || {}).paths || []).filter(Boolean);
+    const intentText = fs.readFileSync(intentPath, "utf8");
+    const intent = yaml.load(intentText) || {};
+
+    const forbiddenPatterns = ((intent.forbidden || {}).paths || []).filter(Boolean);
 
     const eventPath = process.env.GITHUB_EVENT_PATH;
     if (!eventPath || !fs.existsSync(eventPath)) {
@@ -35,21 +39,24 @@ async function run() {
     const headSha = pr.head.sha;
 
     const changedFiles = [];
-    const options = {
+    const execOptions = {
       listeners: {
         stdout: (data) => {
-          for (const line of data.toString().split("\n")) {
+          const text = data.toString();
+          for (const line of text.split("\n")) {
             const trimmed = line.trim();
-            if (trimmed.length > 0) changedFiles.push(trimmed);
+            if (trimmed.length > 0) {
+              changedFiles.push(trimmed);
+            }
           }
         },
       },
     };
 
-    await exec.exec("git", ["diff", "--name-only", baseSha, headSha], options);
+    await exec.exec("git", ["diff", "--name-only", baseSha, headSha], execOptions);
 
     const forbiddenHits = changedFiles.filter((file) =>
-      forbidden.some((pattern) => minimatch(file, pattern, { dot: true })),
+      forbiddenPatterns.some((pattern) => minimatch(file, pattern, { dot: true })),
     );
 
     if (forbiddenHits.length > 0) {
