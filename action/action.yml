@@ -1,0 +1,10 @@
+name: IntentGate
+description: Fail PRs when changes violate declared intent
+inputs:
+  intent_path:
+    description: Path to intent file
+    required: false
+    default: intent.yml
+runs:
+  using: node20
+  main: src/index.js

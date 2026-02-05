@@ -1,0 +1,17 @@
+name: IntentGate
+
+on:
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run IntentGate
+        uses: ./action
+        with:
+          intent_path: intent.yml

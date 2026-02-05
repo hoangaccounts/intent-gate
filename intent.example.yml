@@ -1,0 +1,9 @@
+intent_version: 1
+allowed:
+  paths:
+    - "src/ui/**"
+forbidden:
+  paths:
+    - "src/domain/**"
+require:
+  tests_touched: true
