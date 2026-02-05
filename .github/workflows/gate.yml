@@ -1,4 +1,4 @@
-name: IntentGate
+name: IntentGate 
 
 on:
   pull_request:
