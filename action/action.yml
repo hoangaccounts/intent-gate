@@ -7,4 +7,4 @@ inputs:
     default: intent.yml
 runs:
   using: node20
-  main: src/index.js
+  main: dist/index.js
