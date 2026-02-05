@@ -1,4 +1,4 @@
-# IntentGate
+# IntentGate 
 
 **Enforce PR scope before merge.**
 
